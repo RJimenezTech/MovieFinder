@@ -3,21 +3,19 @@
 ​
 ## Project Summary
 ​
-...
+A movie picker app...
 ​
 ## Developers
 ​
-1. ...
+1. Blessing Igbadumhe
 ​
-2. ...
+2. Robert Jimenez
 ​
-3. ...
+3. Jessica Sisavath
 ​
 ## Installation Instructions
 ​
 - Clone our repo to your computer
-​
-- ...
 ​
 ​
 ## Animated Gifs/Pictures of App
@@ -26,7 +24,7 @@
 ​
 ## Tech Stack
 ​
-- What languages is it written with: 
+- HTML, CSS, JavaScript, Bulma(What languages is it written with?)
 ​
 - What libraries are used: 
 ​
@@ -35,11 +33,12 @@
 ​
 ## APIs
 ​
--
+- IMDB API (https://imdb-api.com/) 
+- Utelly API (https://rapidapi.com/utelly/api/utelly/) 
 ​
 ## MVP (Minimum Viable Product)
 ​
--
+- 
 ​
 ​
 ## Stretch Goals
