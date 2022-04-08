@@ -10,7 +10,7 @@ body{
 }
 
 .questions{
-    display: done;
+    display: block;
 }
 
 .movieDisplayed{
