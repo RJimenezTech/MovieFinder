@@ -8,3 +8,12 @@ body{
     align-items: center;
     height: 1000px;
 }
+
+.questions{
+    display: done;
+}
+
+.movieDisplayed{
+    display: none;
+}
+
