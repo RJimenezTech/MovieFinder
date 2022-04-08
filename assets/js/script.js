@@ -1,5 +1,15 @@
+let startButton = document.querySelector('.startButton')
+let questionEvent = document.querySelector('.questionEvent')
+
 const myImdbKey = "k_w8uz89zh";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
+
+//click start button to see questions
+const showEventQuestions = () => {
+    startButton.style.display="none"
+    questionEvent.style.display="block"
+
+}
 
 // find the button
 
@@ -51,3 +61,6 @@ let displayMovieInfo = function(data) {
 
 // event listener for ocassion selection
 $(".button-container").on("click",".button-selection", getSearchList);
+
+// startButton event listener
+startButton.addEventListener('click', showEventQuestions)
