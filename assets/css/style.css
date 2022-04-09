@@ -1,16 +1,9 @@
-body{
-   background-color:black;
+html{
+   background-color:#808080;
 }
 
-.startBtn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 1000px;
-}
-
-.questions{
-    display: block;
+.questionEvent{
+    display: none;
 }
 
 .movieDisplayed{
