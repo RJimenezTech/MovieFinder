@@ -14,8 +14,10 @@
 .questions{
     display: block;
 }
+.questionEvent{
+    display: none;
+}
 
 .movieDisplayed{
     display: none;
 }
-
