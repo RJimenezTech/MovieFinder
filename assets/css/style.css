@@ -1,7 +1,19 @@
-html{
-   background-color:#808080;
+.background{ 
+    position: relative;
+}
+.button.is-large{
+  position: absolute;
+  top: 50%;
+  left:50%;
+}
+.feature-image{
+    width: 100%;
+    height: auto;
 }
 
+.questions{
+    display: block;
+}
 .questionEvent{
     display: none;
 }
@@ -9,4 +21,3 @@ html{
 .movieDisplayed{
     display: none;
 }
-
