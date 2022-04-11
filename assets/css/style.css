@@ -1,12 +1,21 @@
-html{
-   background-color:#808080;
+html {
+    background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80') no-repeat center fixed;     
+    background-size: cover;
 }
 
 .questionEvent{
     display: none;
 }
 
-.movieDisplayed{
+/* .movieDisplayed{
     display: none;
+} */
+
+.startButton, .questionEvent, .movieDisplayed{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    margin: 0px;
 }
 
