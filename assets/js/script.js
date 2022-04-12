@@ -7,13 +7,15 @@ let posterElement = document.querySelector(".poster");
 let synopsisElement = document.querySelector(".synopsis");
 let streamingElement = document.querySelector("#streaming");
 let movieCardElement = document.querySelector(".movieCard");
+let backButtonElement = document.querySelector(".back");
+let newRecommendationElement = document.querySelector(".new-recommendation");
 
-const myImdbKey = "k_w8uz89zh";
+const myImdbKey = "k_w6uw2vbf";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
 // function tomove to different page
 
-const moveToMovieCard = function() {
-    location.assign("movieDisplayed.html");
+if (localStorage.getItem("searchInput")) {
+    localStorage.clear();
 }
 
 //click start button to see questions
@@ -27,41 +29,34 @@ const showMovieCard = function() {
     movieCardElement.style.display = "block";
 }
 
-// find the button
-let getSearchList = function(event) {
-    let occassion = $(event.target).text();
-    
+const recommendMovie = function(occasion) {
+    console.log(occasion);
     let queryString = "";
-    
-    localStorage.setItem("searchInput",JSON.stringify(occassion));
 
-    if (occassion === "Girls Night") {
+    if (occasion === "Girls Night") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=romances&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
     } else 
-    if (occassion === "Family Night") {
-        queryString = "?title_type=feature,tv_movie,documentary&genres=drama,horror,romance&certificates=us:G,us:PG,us:PG-13&count=100&sort=user_rating,desc";
+    if (occasion === "Family Night") {
+        queryString = "?title_type=feature,tv_movie,documentary&genres=adventure&certificates=us:G,us:PG,us:PG-13&count=100&sort=user_rating,desc";
     } else 
-    if (occassion === "Kids Sleepover") {
+    if (occasion === "Kids Sleepover") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=animation&certificates=us:G&count=100&sort=user_rating,desc";
     } else 
-    if (occassion === "Date Night") {
-        queryString = "?title_type=feature,tv_movie,documentary&genres=action,adventure,animation,family,fantasy&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
+    if (occasion === "Date Night") {
+        queryString = "?title_type=feature,tv_movie,documentary&genres=romance,adventure&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
     } else 
-    if (occassion === "Just watching by myself") {
+    if (occasion === "Just watching by myself") {
         queryString = "?title_type=feature,tv_movie,documentary&count=100&sort=user_rating,desc";
     }
     
     let imdbUrl = "https://imdb-api.com/API/AdvancedSearch/" + myImdbKey + queryString;
-       
+      
     fetch(imdbUrl)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
                     console.log(data);
                     
-                    // moveToMovieCard();
-                    console.log("help");
-                    showMovieCard();
                     displayMovieInfo(data);
                 });
             } else {
@@ -73,15 +68,31 @@ let getSearchList = function(event) {
         });
 }
 
+// show the card and use button clicked as basis for query string
+let getSearchList = function(event) {
+    showMovieCard(); 
+    let occasion = $(event.target).text();
+    localStorage.setItem("searchInput",JSON.stringify(occasion));
+    recommendMovie(occasion);
+}
+// differentiate whether we clicked an ocassion option or selected new rec
+const searchHandler = function(event) {
+    if ($(event.target).text() === "Recommendation") {
+        // use the old search input as the basis for the query string
+        recommendMovie(JSON.parse(localStorage.getItem("searchInput")));
+        $("#streaming").find("a").remove();
+    } else {
+        // other wise
+        getSearchList(event);
+    }
+}
+
 let displayMovieInfo = function(data) {
     // random number
     let randomNum = Math.floor(Math.random() * data.results.length);
-    // for loop to find a random movie
     let movie = data.results[randomNum];
-    console.log(movie)
     let title = movie.title;
-    
-    
+        
     titleElement.innerHTML = title;
     let firstParen = movie.description.indexOf("(");
     let secondParen = movie.description.indexOf(")");
@@ -96,17 +107,14 @@ let displayMovieInfo = function(data) {
     let synopsis = "";
     if (movie.plot === null) {
         synopsis = "No synopsis available.";
-        console.log(synopsis);
     } else {
         synopsis = movie.plot;    
-        console.log(synopsis);
     }
     synopsisElement.innerHTML = synopsis;
     displayStreamingInfo(movie.title);
 }
 
 let displayStreamingInfo = function(title) {
-    console.log(title);
     let filteredTitle = title.replaceAll(" ","%20");
     const options = {
         method: 'GET',
@@ -150,14 +158,19 @@ let displayStreamingInfo = function(title) {
 
 // function for back button
 const clickBackButton = function () {
-    location.assign("index.html");
-    localStorage.setItem("searchInput", null);
+    localStorage.clear();
+    movieCardElement.style.display = "none";
+    questionEvent.style.display = "block";
 }
 
-// event listener for occassion selection
-$(".button-container").on("click",".button-selection", getSearchList);
+// event listener for new recommendation
+newRecommendationElement.addEventListener("click", searchHandler);
 
+// event listener for occasion selection
+$(".button-container").on("click",".button-selection", searchHandler);
 
+// wait for back button 
+backButtonElement.addEventListener("click",clickBackButton);
 
 // startButton event listener
 startButton.addEventListener('click', showEventQuestions)
