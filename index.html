@@ -18,8 +18,8 @@
             </button>
         </div>
 
-        <section class="questionEvent">
-            <h2>What is the occasion?</h2>
+        <section class="questionEvent has-background-white-bis">
+            <h2>What is your occasion?</h2>
             <div class="button-container column">
                 <button class="column button is-normal button-selection girls">Girls Night</button>
                 <button class="column button is-normal button-selection family">Family Night</button>
@@ -33,54 +33,57 @@
 
     <div class="level content is-vcentered">
         <div class="level-item">
-        <button id="backbutton" class="button is-normal is-danger">BACK</button>
-    </div>
+            <button id="backbutton" class="button back is-normal is-danger">BACK</button>
+        </div>
 
-    <div class="movieCard box is-mobile is-family-monospace">
-        <div class="columns is-mobile is-multiline">
-            <div id="title" class="column is-full-mobile is-one-third-tablet">
-                <p class="title has-text-centered is-mobile">
-                    Title
-                </p>
+
+        <div class="movieCard box is-mobile is-family-monospace">
+            <div class="columns is-mobile">
+                <div id="title" class="column is-full is-full-mobile is-one-third-tablet">
+                    <p class="title has-text-centered is-size-4-mobile">
+                        Title
+                    </p>
+                </div>
             </div>
-            <div id="year" class="column is-half-mobile is-one-third-tablet">
-                <p class="year has-text-centered is-mobile">
-                    Year
-                </p>
+            <div class="columns is-mobile">
+                <div id="year" class="column is-half-mobile is-one-third-tablet">
+                    <p class="year subtitle is-5 has-text-centered is-mobile">
+                        Year
+                    </p>
+                </div>
+                <div id="rating" class="column is-half-mobile is-one-third-tablet">
+                    <p class="rating subtitle is-5 has-text-centered is-mobile">
+                        Rating
+                    </p>
+                </div>
             </div>
-            <div id="rating" class="column is-half-mobile is-one-third-tablet">
-                <p class="rating has-text-centered is-mobile">
-                    Rating
-                </p>
+            <div id="second-row" class="columns">
+                <div class="column is-full-mobile is-one-third-tablet">
+                    <figure class="image is-4by5">
+                        <img class="poster" src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                </div>
+                <div id="synopsis" class="column is-full-mobile is-half-tablet">
+                    <p class="synopsis has-text-centered is-size-7-mobile">
+                        Synopsis of movie
+                    </p>
+                </div>
             </div>
-        </div>
-        <div id="second-row" class="columns">
-            <div class="column is-full-mobile is-one-third-tablet">
-                <figure class="image is-4by5">
-                    <img class="poster" src="https://bulma.io/images/placeholders/128x128.png">
-                </figure>
+            <div class="columns is-mobile">
+                <div id="streaming" class="column is-hidden-mobile is-full">
+                    <p class="subtitle is-5 has-text-left is-mobile">
+                        Streaming options
+                    </p>
+                </div>
             </div>
-            <div id="synopsis" class="column is-full-mobile is-half-tablet">
-                <p class="synopsis has-text-centered is-size-7-mobile">
-                    Synopsis of movie
-                </p>
+            <div class="columns is-mobile">
+                <button id="recBtn"
+                    class="button new-recommendation is-focused is-danger has-text-centered is-family-monospace is-fullwidth is-normal is-responsive">
+                    New Recommendation
+                </button>
             </div>
-        </div>
-        <div class="columns is-mobile">
-            <div id="streaming" class="column is-hidden-mobile is-full">
-                <p class="has-text-left is-mobile">
-                    Streaming options
-                </p>
-            </div>
-        </div>
-        <div class="columns is-mobile">
-            <button id="recBtn"
-                class="button is-focused is-danger has-text-centered is-family-monospace is-fullwidth is-normal is-responsive">
-                Recommendations
-            </button>
         </div>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
