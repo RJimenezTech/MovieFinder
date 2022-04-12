@@ -5,10 +5,16 @@ let yearElement = document.querySelector(".year");
 let ratingElement = document.querySelector(".rating");
 let posterElement = document.querySelector(".poster");
 let synopsisElement = document.querySelector(".synopsis");
-let streamingElement = document.querySelector(".streaming");
+let streamingElement = document.querySelector("#streaming");
+let movieCardElement = document.querySelector(".movieCard");
 
 const myImdbKey = "k_w8uz89zh";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
+// function tomove to different page
+
+const moveToMovieCard = function() {
+    location.assign("movieDisplayed.html");
+}
 
 //click start button to see questions
 const showEventQuestions = (event) => {
@@ -16,25 +22,32 @@ const showEventQuestions = (event) => {
     questionEvent.style.display="block"
 }
 
-// find the button
+const showMovieCard = function() {
+    questionEvent.style.display = "none";
+    movieCardElement.style.display = "block";
+}
 
+// find the button
 let getSearchList = function(event) {
-    let ocassion = $(event.target).text();
-    let queryString ="";
+    let occassion = $(event.target).text();
     
-    if (ocassion === "Girls Night") {
-        queryString = "?title_type=feature,tv_movie,documentary&genres=comedy,drama,family,romances&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
+    let queryString = "";
+    
+    localStorage.setItem("searchInput",JSON.stringify(occassion));
+
+    if (occassion === "Girls Night") {
+        queryString = "?title_type=feature,tv_movie,documentary&genres=romances&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
     } else 
-    if (ocassion === "Family Night") {
+    if (occassion === "Family Night") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=drama,horror,romance&certificates=us:G,us:PG,us:PG-13&count=100&sort=user_rating,desc";
     } else 
-    if (ocassion === "Kids Sleepover") {
+    if (occassion === "Kids Sleepover") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=animation&certificates=us:G&count=100&sort=user_rating,desc";
     } else 
-    if (ocassion === "Date Night") {
+    if (occassion === "Date Night") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=action,adventure,animation,family,fantasy&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
     } else 
-    if (ocassion === "Just watching by myself") {
+    if (occassion === "Just watching by myself") {
         queryString = "?title_type=feature,tv_movie,documentary&count=100&sort=user_rating,desc";
     }
     
@@ -45,6 +58,10 @@ let getSearchList = function(event) {
             if (response.ok) {
                 response.json().then(function(data) {
                     console.log(data);
+                    
+                    // moveToMovieCard();
+                    console.log("help");
+                    showMovieCard();
                     displayMovieInfo(data);
                 });
             } else {
@@ -63,21 +80,19 @@ let displayMovieInfo = function(data) {
     let movie = data.results[randomNum];
     console.log(movie)
     let title = movie.title;
-    console.log(title);
+    
+    
     titleElement.innerHTML = title;
     let firstParen = movie.description.indexOf("(");
     let secondParen = movie.description.indexOf(")");
-    let year = movie.description.substring(firstParen+1,secondParen);
-    console.log(year);
+    let year = movie.description.substring(firstParen,secondParen+1);
+    
     yearElement.innerHTML = year;
     let rating = movie.imDbRating;
-    console.log(rating + "/10");
-    ratingElement.innerHTML = rating + "/10";
+    
+    ratingElement.innerHTML = "IMDB Score: " + rating + "/10";
     let poster = movie.image;
-    let posterImageEl = document.createElement("img");
-    posterImageEl.setAttribute("src",poster);
-    posterImageEl.setAttribute("width","25%");
-    posterElement.appendChild(posterImageEl);
+    posterElement.setAttribute("src",poster);
     let synopsis = "";
     if (movie.plot === null) {
         synopsis = "No synopsis available.";
@@ -93,7 +108,6 @@ let displayMovieInfo = function(data) {
 let displayStreamingInfo = function(title) {
     console.log(title);
     let filteredTitle = title.replaceAll(" ","%20");
-    console.log(filteredTitle);
     const options = {
         method: 'GET',
         headers: {
@@ -102,19 +116,27 @@ let displayStreamingInfo = function(title) {
         }
     };
     
-
     let utellyUrl = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=" + filteredTitle + "&country=us";
     fetch(utellyUrl, options)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
                     console.log(data); 
-                    console.log(data.results[0].locations[0].display_name);
-                    if (data.results[0] === null) {
-                        streamingElement.innerHTML = "No streaming information available."
-                    }
-                    for (let i =0; i < data.results[0].locations.length;i++){
-                        streamingElement.innerHTML = streamingElement.innerHTML + data.results[0].locations[i].display_name + " ";
+                    if (data.results[0] === undefined) { // cannot reach this inside this if statement
+                        let streamingOption = document.createElement("p");
+                        streamingOption.innerHTML = "No streaming information available."
+                        streamingElement.appendChild(streamingOption);
+                    } else {
+                        for (let i =0; i < data.results[0].locations.length;i++){
+                        let streamingText = document.createElement("p");
+                        let streamingOption = document.createElement("a");
+                        streamingOption.setAttribute("href", data.results[0].locations[i].url);
+                        streamingOption.setAttribute("target","_blank");
+                        streamingOption.setAttribute("display","block");
+                        streamingText.innerHTML = data.results[0].locations[i].display_name;
+                        streamingOption.appendChild(streamingText);
+                        streamingElement.appendChild(streamingOption);
+                        }
                     }
                 });
             } else {
@@ -124,12 +146,18 @@ let displayStreamingInfo = function(title) {
         .catch(function(error) {
             alert("Unable to connect to streaming database (Utelly)");
         });
-    
-    console.log("help")
 }
 
-// event listener for ocassion selection
+// function for back button
+const clickBackButton = function () {
+    location.assign("index.html");
+    localStorage.setItem("searchInput", null);
+}
+
+// event listener for occassion selection
 $(".button-container").on("click",".button-selection", getSearchList);
+
+
 
 // startButton event listener
 startButton.addEventListener('click', showEventQuestions)
