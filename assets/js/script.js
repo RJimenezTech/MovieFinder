@@ -7,8 +7,8 @@ let posterElement = document.querySelector(".poster");
 let synopsisElement = document.querySelector(".synopsis");
 let streamingElement = document.querySelector("#streaming");
 let movieCardElement = document.querySelector(".movieCard");
-let backButtonElement = document.querySelector(".back");
-let newRecommendationElement = document.querySelector(".new-recommendation");
+let backButtonElement = document.querySelector("#backbutton");
+let newRecommendationElement = document.querySelector("#recBtn");
 
 const myImdbKey = "k_w6uw2vbf";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
@@ -32,7 +32,7 @@ const showMovieCard = function() {
 const recommendMovie = function(occasion) {
     console.log(occasion);
     let queryString = "";
-
+    removeOldInfo();
     if (occasion === "Girls Night") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=romances&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
     } else 
@@ -55,8 +55,7 @@ const recommendMovie = function(occasion) {
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
-                    console.log(data);
-                    
+                    // console.log(data);
                     displayMovieInfo(data);
                 });
             } else {
@@ -77,7 +76,10 @@ let getSearchList = function(event) {
 }
 // differentiate whether we clicked an ocassion option or selected new rec
 const searchHandler = function(event) {
-    if ($(event.target).text() === "Recommendation") {
+    console.log(event.target);
+    console.log(event.target.innerHTML);
+    console.log(event)
+    if (event.target.innerHTML === "New Recommendation") {
         // use the old search input as the basis for the query string
         recommendMovie(JSON.parse(localStorage.getItem("searchInput")));
         $("#streaming").find("a").remove();
@@ -133,6 +135,7 @@ let displayStreamingInfo = function(title) {
                     if (data.results[0] === undefined) { // cannot reach this inside this if statement
                         let streamingOption = document.createElement("p");
                         streamingOption.innerHTML = "No streaming information available."
+                        streamingOption.setAttribute("class","aStreamOption")
                         streamingElement.appendChild(streamingOption);
                     } else {
                         for (let i =0; i < data.results[0].locations.length;i++){
@@ -141,6 +144,7 @@ let displayStreamingInfo = function(title) {
                         streamingOption.setAttribute("href", data.results[0].locations[i].url);
                         streamingOption.setAttribute("target","_blank");
                         streamingOption.setAttribute("display","block");
+                        streamingOption.setAttribute("class","aStreamOption");
                         streamingText.innerHTML = data.results[0].locations[i].display_name;
                         streamingOption.appendChild(streamingText);
                         streamingElement.appendChild(streamingOption);
@@ -161,8 +165,20 @@ const clickBackButton = function () {
     localStorage.clear();
     movieCardElement.style.display = "none";
     questionEvent.style.display = "block";
+    // clear streaming options
+    removeOldInfo();
 }
 
+
+const removeOldInfo = function() {
+    $(".aStreamOption").remove();
+    titleElement.innerText = "";
+    yearElement.innerText = "";
+    posterElement.innerText = "";
+    ratingElement.innerText = "";
+    synopsisElement.innerText = "";
+    $(".poster").attr("src","https://bulma.io/images/placeholders/128x128.png");
+}
 // event listener for new recommendation
 newRecommendationElement.addEventListener("click", searchHandler);
 
