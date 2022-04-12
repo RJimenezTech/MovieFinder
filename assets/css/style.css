@@ -64,7 +64,7 @@ nav code {
 
 .box{
   width:50vw;
-  height:80vh;
+  height:auto;
   position: absolute;
     left: 50%;
     top: 50%;
@@ -75,3 +75,16 @@ nav code {
 .movieCard {
   display: none;
 }
+
+#recBtn {
+  margin:10px;
+}
+
+#backbutton{
+  position: absolute;
+    left: 26%;
+    top: 20%;
+    transform: translate(-15%, -238%);
+    padding: 21px;
+  }
+

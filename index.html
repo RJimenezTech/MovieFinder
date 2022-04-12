@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +9,13 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Movie Finder</title>
 </head>
+
 <body>
     <div class="level content is-vcentered">
         <div class="level-item">
-          <button class="button is-light startButton" type="submit">
-            START
-          </button>
+            <button class="button is-light startButton" type="submit">
+                START
+            </button>
         </div>
 
         <section class="questionEvent">
@@ -28,53 +30,60 @@
         </section>
     </div>
 
-    <div class="movieCard box is-mobile">
+
+    <div class="level content is-vcentered">
+        <div class="level-item">
+        <button id="backbutton" class="button is-normal is-danger">BACK</button>
+    </div>
+
+    <div class="movieCard box is-mobile is-family-monospace">
         <div class="columns is-mobile is-multiline">
-            <div id="title" class="column is-one-third">
-                <p class="title has-text-centered-mobile is-size-3">
+            <div id="title" class="column is-full-mobile is-one-third-tablet">
+                <p class="title has-text-centered is-mobile">
                     Title
                 </p>
             </div>
-            <div id="year" class="column is-one-third">
-                <p class="year has-text-centered-mobile is-size-4">
+            <div id="year" class="column is-half-mobile is-one-third-tablet">
+                <p class="year has-text-centered is-mobile">
                     Year
                 </p>
             </div>
-            <div id="rating" class="column is-one-third">
-                <p class="rating has-text-centered-mobile is-size-4">
+            <div id="rating" class="column is-half-mobile is-one-third-tablet">
+                <p class="rating has-text-centered is-mobile">
                     Rating
                 </p>
             </div>
         </div>
-        <div id="second-row" class="columns is-mobile">
-            <div class="column is-one-third">
+        <div id="second-row" class="columns">
+            <div class="column is-full-mobile is-one-third-tablet">
                 <figure class="image is-4by5">
                     <img class="poster" src="https://bulma.io/images/placeholders/128x128.png">
                 </figure>
             </div>
-            <div id="synopsis" class="column is-two-thirds">
-                <p class="synopsis has-text-centered-mobile is-size-4">
+            <div id="synopsis" class="column is-full-mobile is-half-tablet">
+                <p class="synopsis has-text-centered is-size-7-mobile">
                     Synopsis of movie
                 </p>
             </div>
         </div>
         <div class="columns is-mobile">
-            <div id="streaming" class="column is-mobile is-full">
-                <p class= "has-text-left-mobile is-size-4">
+            <div id="streaming" class="column is-hidden-mobile is-full">
+                <p class="has-text-left is-mobile">
                     Streaming options
                 </p>
             </div>
         </div>
         <div class="columns is-mobile">
-            <div id="recommendations" class="column is-mobile is-full">
-                <p class="recommendations has-text-left-mobile is-size-4">
-                    Recommendations
-                </p>
-            </div>
+            <button id="recBtn"
+                class="button is-focused is-danger has-text-centered is-family-monospace is-fullwidth is-normal is-responsive">
+                Recommendations
+            </button>
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
