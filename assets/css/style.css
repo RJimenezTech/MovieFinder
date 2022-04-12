@@ -72,3 +72,6 @@ nav code {
     padding: 10px;
 }
 
+.movieCard {
+  display: none;
+}
