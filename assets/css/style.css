@@ -77,12 +77,4 @@ nav code {
   white-space:normal;
 }
 
-#backbutton{
-  position: absolute;
-    left: 26%;
-    top: 20%;
-    transform: translate(-15%, -238%);
-    padding: 21px;
-  display: none;  
-}
 
