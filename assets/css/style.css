@@ -86,5 +86,6 @@ nav code {
     top: 20%;
     transform: translate(-15%, -238%);
     padding: 21px;
-  }
+  display: none;  
+}
 
