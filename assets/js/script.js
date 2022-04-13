@@ -9,7 +9,7 @@ let streamingElement = document.querySelector("#streaming");
 let movieCardElement = document.querySelector(".movieCard");
 let backButtonElement = document.querySelector("#backbutton");
 let newRecommendationElement = document.querySelector("#recBtn");
-
+var movieNum = "";
 const myImdbKey = "k_w6uw2vbf";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
 // function tomove to different page
@@ -27,6 +27,7 @@ const showEventQuestions = (event) => {
 const showMovieCard = function() {
     questionEvent.style.display = "none";
     movieCardElement.style.display = "block";
+    backButtonElement.style.display = "block";
 }
 
 const recommendMovie = function(occasion) {
@@ -34,7 +35,7 @@ const recommendMovie = function(occasion) {
     let queryString = "";
     removeOldInfo();
     if (occasion === "Girls Night") {
-        queryString = "?title_type=feature,tv_movie,documentary&genres=romances&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
+        queryString = "?title_type=feature,tv_movie,documentary&genres=romance&certificates=us:PG-13,us:R&count=100&sort=user_rating,desc";
     } else 
     if (occasion === "Family Night") {
         queryString = "?title_type=feature,tv_movie,documentary&genres=adventure&certificates=us:G,us:PG,us:PG-13&count=100&sort=user_rating,desc";
@@ -50,12 +51,12 @@ const recommendMovie = function(occasion) {
     }
     
     let imdbUrl = "https://imdb-api.com/API/AdvancedSearch/" + myImdbKey + queryString;
-      
+    
     fetch(imdbUrl)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
-                    // console.log(data);
+                    console.log(data);
                     displayMovieInfo(data);
                 });
             } else {
@@ -76,9 +77,7 @@ let getSearchList = function(event) {
 }
 // differentiate whether we clicked an ocassion option or selected new rec
 const searchHandler = function(event) {
-    console.log(event.target);
-    console.log(event.target.innerHTML);
-    console.log(event)
+    movieNum = 0;
     if (event.target.innerHTML === "New Recommendation") {
         // use the old search input as the basis for the query string
         recommendMovie(JSON.parse(localStorage.getItem("searchInput")));
@@ -90,11 +89,11 @@ const searchHandler = function(event) {
 }
 
 let displayMovieInfo = function(data) {
-    // random number
     let randomNum = Math.floor(Math.random() * data.results.length);
     let movie = data.results[randomNum];
     let title = movie.title;
-        
+    console.log(title);
+    console.log(movie.id);
     titleElement.innerHTML = title;
     let firstParen = movie.description.indexOf("(");
     let secondParen = movie.description.indexOf(")");
@@ -113,11 +112,11 @@ let displayMovieInfo = function(data) {
         synopsis = movie.plot;    
     }
     synopsisElement.innerHTML = synopsis;
-    displayStreamingInfo(movie.title);
+    displayStreamingInfo(movie.id);
 }
 
-let displayStreamingInfo = function(title) {
-    let filteredTitle = title.replaceAll(" ","%20");
+let displayStreamingInfo = function(imdbTT) {
+    console.log(imdbTT);
     const options = {
         method: 'GET',
         headers: {
@@ -126,26 +125,26 @@ let displayStreamingInfo = function(title) {
         }
     };
     
-    let utellyUrl = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=" + filteredTitle + "&country=us";
+    let utellyUrl = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?source_id=" + imdbTT + "&source=imdb&country=us";
     fetch(utellyUrl, options)
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
                     console.log(data); 
-                    if (data.results[0] === undefined) { // cannot reach this inside this if statement
+                    if (data.collection.locations === undefined) { // cannot reach this inside this if statement
                         let streamingOption = document.createElement("p");
                         streamingOption.innerHTML = "No streaming information available."
                         streamingOption.setAttribute("class","aStreamOption")
                         streamingElement.appendChild(streamingOption);
                     } else {
-                        for (let i =0; i < data.results[0].locations.length;i++){
+                        for (let i =0; i < data.collection.locations.length;i++){
                         let streamingText = document.createElement("p");
                         let streamingOption = document.createElement("a");
-                        streamingOption.setAttribute("href", data.results[0].locations[i].url);
+                        streamingOption.setAttribute("href", data.collection.locations[i].url);
                         streamingOption.setAttribute("target","_blank");
                         streamingOption.setAttribute("display","block");
                         streamingOption.setAttribute("class","aStreamOption");
-                        streamingText.innerHTML = data.results[0].locations[i].display_name;
+                        streamingText.innerHTML = data.collection.locations[i].display_name;
                         streamingOption.appendChild(streamingText);
                         streamingElement.appendChild(streamingOption);
                         }
