@@ -55,11 +55,7 @@ nav code {
 }
 
 .back {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-190%, -240%);
-    padding: 10px;
+    margin-left: 20px;
 }
 
 .box{
@@ -78,14 +74,7 @@ nav code {
 
 #recBtn {
   margin:10px;
+  white-space:normal;
 }
 
-#backbutton{
-  position: absolute;
-    left: 26%;
-    top: 20%;
-    transform: translate(-15%, -238%);
-    padding: 21px;
-  display: none;  
-}
 
