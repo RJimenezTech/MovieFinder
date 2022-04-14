@@ -46,10 +46,10 @@ const recommendMovie = function(occasion) {
         queryString = "?title_type=feature,tv_movie,documentary&genres=animation&certificates=us:G&count=50&sort=user_rating,desc";
     } else 
     if (occasion === "Date Night") {
-        queryString = "?title_type=feature,tv_movie,documentary&genres=romance,adventure&certificates=us:PG-13,us:R&count=&sort=user_rating,desc";
+        queryString = "?title_type=feature,tv_movie,documentary&genres=romance,adventure&certificates=us:PG-13,us:R&count=50&sort=user_rating,desc";
     } else 
     if (occasion === "Just watching by myself") {
-        queryString = "?title_type=feature,tv_movie,documentary&count=100&sort=user_rating,desc";
+        queryString = "?title_type=feature,tv_movie,documentary&count=50&sort=user_rating,desc";
     }
     
     let imdbUrl = "https://imdb-api.com/API/AdvancedSearch/" + myImdbKey + queryString;
