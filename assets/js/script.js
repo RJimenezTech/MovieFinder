@@ -23,6 +23,7 @@ if (localStorage.getItem("searchInput")) {
 const showEventQuestions = (event) => {
     startButton.style.display="none"
     questionEvent.style.display="block"
+    backButtonElement.style.display = "none";
 }
 
 const showMovieCard = function() {
@@ -165,6 +166,7 @@ const clickBackButton = function () {
     localStorage.clear();
     movieCardElement.style.display = "none";
     questionEvent.style.display = "block";
+    backButtonElement.style.display = "none";
     // clear streaming options
     removeOldInfo();
 }
