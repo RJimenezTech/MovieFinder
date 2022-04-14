@@ -56,6 +56,7 @@ nav code {
 
 .back {
     margin-left: 20px;
+    display: none;
 }
 
 .box{

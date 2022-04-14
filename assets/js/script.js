@@ -9,7 +9,7 @@ let streamingElement = document.querySelector("#streaming");
 let movieCardElement = document.querySelector(".movieCard");
 let backButtonElement = document.querySelector("#backbutton");
 let newRecommendationElement = document.querySelector("#recBtn");
-var movieNum = "";
+// var movieNum = "";
 const myImdbKey = "k_w6uw2vbf";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
 // function tomove to different page
@@ -77,7 +77,8 @@ let getSearchList = function(event) {
 }
 // differentiate whether we clicked an ocassion option or selected new rec
 const searchHandler = function(event) {
-    movieNum = 0;
+    // movieNum = 0;
+    console.log(event.target.innerHTML);
     if (event.target.innerHTML === "New Recommendation") {
         // use the old search input as the basis for the query string
         recommendMovie(JSON.parse(localStorage.getItem("searchInput")));
@@ -89,11 +90,10 @@ const searchHandler = function(event) {
 }
 
 let displayMovieInfo = function(data) {
+    console.log(data);
     let randomNum = Math.floor(Math.random() * data.results.length);
     let movie = data.results[randomNum];
     let title = movie.title;
-    console.log(title);
-    console.log(movie.id);
     titleElement.innerHTML = title;
     let firstParen = movie.description.indexOf("(");
     let secondParen = movie.description.indexOf(")");
@@ -167,7 +167,6 @@ const clickBackButton = function () {
     // clear streaming options
     removeOldInfo();
 }
-
 
 const removeOldInfo = function() {
     $(".aStreamOption").remove();
