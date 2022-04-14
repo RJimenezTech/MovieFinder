@@ -11,7 +11,7 @@ let backButtonElement = document.querySelector("#backbutton");
 let newRecommendationElement = document.querySelector("#recBtn");
 
 // var movieNum = "";
-const myImdbKey = "k_srn1al6a";
+const myImdbKey = "k_w6uw2vbf";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
 // function tomove to different page
 
