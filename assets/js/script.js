@@ -9,8 +9,9 @@ let streamingElement = document.querySelector("#streaming");
 let movieCardElement = document.querySelector(".movieCard");
 let backButtonElement = document.querySelector("#backbutton");
 let newRecommendationElement = document.querySelector("#recBtn");
+
 // var movieNum = "";
-const myImdbKey = "k_w6uw2vbf";
+const myImdbKey = "k_srn1al6a";
 const myUtellyKEy = "02ef498ef6msh8ea8d390f90865bp160652jsn30e4c6e57514"
 // function tomove to different page
 
@@ -181,7 +182,7 @@ const removeOldInfo = function() {
 newRecommendationElement.addEventListener("click", searchHandler);
 
 // event listener for occasion selection
-$(".button-container").on("click",".button-selection", searchHandler);
+$("#occasionBtns").on("click",".button-selection", searchHandler);
 
 // wait for back button 
 backButtonElement.addEventListener("click",clickBackButton);
