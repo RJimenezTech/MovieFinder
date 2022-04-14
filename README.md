@@ -23,10 +23,10 @@ A movie recommendation app to suggests films to the user based on their occasion
     WHEN a card is displayed, THEN links are displayed for where streaming platforms that host that movie.
 
 ## Installation Instructions
-    https://github.com/RJimenezTech/MovieFinder.git
+https://github.com/RJimenezTech/MovieFinder.git
 
 ## Web Site link
-    https://rjimeneztech.github.io/MovieFinder/
+https://rjimeneztech.github.io/MovieFinder/
 
 ​
 ​
